@@ -181,12 +181,13 @@ def hapus_event_reminder():
                     for j in range(1, 6):
                         keterangan_event[i-1][j] = keterangan_event[i][j]
 
-                event_reminder[index_event] = ""  # menghapus event terakhir
-                for i in range(6):  # menghapus keterangan dari event reminder terakhir
-                    keterangan_event[index_event-1][i] = "-"
-                print("Event berhasil dihapus\n")
-
                 index_event -= 1  # mengurangi index event
+
+                event_reminder[index_event] = ""  # menghapus event terakhir
+                # menghapus keterangan event terakhir
+                for i in range(6):
+                    keterangan_event[index_event][i] = "-"
+                print("Event berhasil dihapus\n")
 
             else:  # konfirmasi == "n" atau yang lainnya
                 print("Event tidak jadi dihapus\n")
@@ -368,7 +369,11 @@ while berjalan:
             konfirmasi = input("Apakah anda yakin ingin keluar? (Y/N): ").lower()
             if konfirmasi == 'y':
                 berjalan = False
-                print("Terima kasih telah menggunakan program reminder")   
+                print("Terima kasih telah menggunakan program reminder") 
+        if pilihan == 6:
+            print(event_reminder)
+        if pilihan == 7:
+            print(keterangan_event)  
         pilihan = 0  # mengembalikan pilihan ke 0
     except:
         print("Pilihan tidak valid\n")
