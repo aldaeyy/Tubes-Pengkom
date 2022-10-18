@@ -70,6 +70,7 @@ def tambah_event_reminder():
         event_reminder[index_event] = nama_event
         keterangan_event[index_event][0] = tanggal  # type: ignore
         index_event += 1
+        index_event = min(index_event, 10)
         print("Event berhasil ditambahkan\n")
 
     except:
@@ -177,13 +178,13 @@ def hapus_event_reminder():
 
                 for i in range(index_hapus, index_event):  # menggeser event
                     event_reminder[i-1] = event_reminder[i]
-                    for j in range(index_event):
+                    for j in range(1, 6):
                         keterangan_event[i-1][j] = keterangan_event[i][j]
 
                 index_event -= 1  # mengurangi index event
                 event_reminder[index_event] = ""  # menghapus event terakhir
                 for i in range(6):  # menghapus keterangan dari event reminder terakhir
-                    keterangan_event[index_event][i] = "-"
+                    keterangan_event[index_event-1][i] = "-"
                 print("Event berhasil dihapus\n")
 
             else:  # konfirmasi == "n" atau yang lainnya
@@ -192,7 +193,7 @@ def hapus_event_reminder():
         else:  # event yang ingin dihapus tidak ada
             print("Event tidak ditemukan\n")
 
-    except:
+    except ValueError:
         print("Nomor event tidak valid\n")
 
 # def ubah_nama_event_reminder(): mengubah nama event reminder
@@ -301,7 +302,7 @@ from datetime import date as dt  # untuk keperluan tanggal, format = YYYY-MM-DD
 from datetime import time as tm  # untuk keperluan waktu, format = HH:MM:SS
 
 # Inisialisasi
-event_reminder = ['' for i in range(10)]
+event_reminder = ['1' for i in range(10)]
 keterangan_event = [['-' for i in range(6)] for j in range(10)]
 index_event = index_hapus = index_ubah = pilihan = pilihan_ubah = tanggal_event = bulan_event = tahun_event = jam_event = menit_event = detik_event = sisa_hari = 0 
 berjalan = True
@@ -310,65 +311,63 @@ hari_ini = dt.today()
 konfirmasi = ''
 
 # Pembuka
-print("Selamat datang di program reminder!")
+print("Welcome to Counting Days!")
 print("Jumlah maksimal untuk event reminder adalah 10")
 
 # Program utama
 while berjalan:
     menu_utama()  # menampilkan menu utama, 1 = tambah, 2 = tampilkan, 3 = hapus, 4 = ubah, 5 = keluar
-    try:
-        pilihan = int(input("Masukkan pilihan: "))
-
-        if pilihan == 1:  # menambahkan event reminder
-            if index_event < 10:  # jika masih ada slot kosong
-                tambah_event_reminder()
-            else:
-                print("Jumlah event sudah maksimal\n")
-        if pilihan == 2:  # menampilkan event reminder
-            if index_event > 0:  # jika ada event yang tersimpan
-                tampilkan_event_reminder()
-            else:
-                print("Tidak ada event yang tersimpan\n")
-        if pilihan == 3:  # menghapus event reminder
-            if index_event > 0:  # jika ada event yang tersimpan
-                hapus_event_reminder()
-            else:
-                print("Tidak ada event yang tersimpan\n")
-        if pilihan == 4:  # mengubah event reminder
-            if index_event > 0:  # jika ada event yang tersimpan
-                ubah_keterangan = True
-                while ubah_keterangan:
-                    menu_ubah()  # menampilkan menu ubah, 1 = ubah nama event, 2 = ubah tanggal event, 3 = ubah waktu event, 4 = ubah keterangan event, 5 = kembali
-                    pilihan_ubah = int(input("Masukkan pilihan: "))
-                    if pilihan_ubah == 1:  # mengubah nama event reminder
-                        ubah_nama_event_reminder()
-                    if pilihan_ubah == 2:  # mengubah tanggal event reminder
-                        ubah_tanggal_event_reminder()
-                    if pilihan_ubah == 3:  # mengubah waktu event reminder
-                        ubah_waktu_event_reminder()
-                    if pilihan_ubah == 4:  # mengubah atau menambah keterangan event reminder
-                        menu_keterangan()  # menampilkan menu keterangan, 1 = prioritas, 2 = lokasi, 3 = tags, 4 = deskripsi, 5 = kembali
-                        pilihan_keterangan = int(input("Masukkan pilihan: "))
-                        if pilihan_keterangan == 1:  # mengubah prioritas event reminder
-                            ubah_prioritas_event_reminder()
-                        if pilihan_keterangan == 2:  # mengubah lokasi event reminder
-                            ubah_lokasi_event_reminder()
-                        if pilihan_keterangan == 3:  # mengubah tags event reminder
-                            ubah_tags_event_reminder()
-                        if pilihan_keterangan == 4:  # mengubah deskripsi event reminder
-                            ubah_deskripsi_event_reminder() 
-                        if pilihan_keterangan == 5:  # kembali ke menu utama
-                            ubah_keterangan = False 
-                    if pilihan_ubah == 5:  # kembali ke menu utama
-                        ubah_keterangan = False                   
-            else:  # jika tidak ada event yang tersimpan
-                print("Tidak ada event yang tersimpan\n")
-        if pilihan == 5:  # keluar dari program
-            konfirmasi = input("Apakah anda yakin ingin keluar? (Y/N): ").lower()
-            if konfirmasi == 'y':
-                berjalan = False
-                print("Terima kasih telah menggunakan program reminder")
-
-        pilihan = 0  # mengembalikan pilihan ke 0
-    except:
-        print("Pilihan tidak valid\n")
+    # try:
+    pilihan = int(input("Masukkan pilihan: "))  
+    if pilihan == 1:  # menambahkan event reminder
+        if index_event < 10:  # jika masih ada slot kosong
+            tambah_event_reminder()
+        else:
+            print("Jumlah event sudah maksimal\n")
+    if pilihan == 2:  # menampilkan event reminder
+        if index_event > 0:  # jika ada event yang tersimpan
+            tampilkan_event_reminder()
+        else:
+            print("Tidak ada event yang tersimpan\n")
+    if pilihan == 3:  # menghapus event reminder
+        if index_event > 0:  # jika ada event yang tersimpan
+            hapus_event_reminder()
+        else:
+            print("Tidak ada event yang tersimpan\n")
+    if pilihan == 4:  # mengubah event reminder
+        if index_event > 0:  # jika ada event yang tersimpan
+            ubah_keterangan = True
+            while ubah_keterangan:
+                menu_ubah()  # menampilkan menu ubah, 1 = ubah nama event, 2 = ubah tanggal event, 3 = ubah waktu event, 4 = ubah keterangan event, 5 = kembali
+                pilihan_ubah = int(input("Masukkan pilihan: "))
+                if pilihan_ubah == 1:  # mengubah nama event reminder
+                    ubah_nama_event_reminder()
+                if pilihan_ubah == 2:  # mengubah tanggal event reminder
+                    ubah_tanggal_event_reminder()
+                if pilihan_ubah == 3:  # mengubah waktu event reminder
+                    ubah_waktu_event_reminder()
+                if pilihan_ubah == 4:  # mengubah atau menambah keterangan event reminder
+                    menu_keterangan()  # menampilkan menu keterangan, 1 = prioritas, 2 = lokasi, 3 = tags, 4 = deskripsi, 5 = kembali
+                    pilihan_keterangan = int(input("Masukkan pilihan: "))
+                    if pilihan_keterangan == 1:  # mengubah prioritas event reminder
+                        ubah_prioritas_event_reminder()
+                    if pilihan_keterangan == 2:  # mengubah lokasi event reminder
+                        ubah_lokasi_event_reminder()
+                    if pilihan_keterangan == 3:  # mengubah tags event reminder
+                        ubah_tags_event_reminder()
+                    if pilihan_keterangan == 4:  # mengubah deskripsi event reminder
+                        ubah_deskripsi_event_reminder() 
+                    if pilihan_keterangan == 5:  # kembali ke menu utama
+                        ubah_keterangan = False 
+                if pilihan_ubah == 5:  # kembali ke menu utama
+                    ubah_keterangan = False                   
+        else:  # jika tidak ada event yang tersimpan
+            print("Tidak ada event yang tersimpan\n")
+    if pilihan == 5:  # keluar dari program
+        konfirmasi = input("Apakah anda yakin ingin keluar? (Y/N): ").lower()
+        if konfirmasi == 'y':
+            berjalan = False
+            print("Terima kasih telah menggunakan program reminder")    
+    pilihan = 0  # mengembalikan pilihan ke 0
+    # except:
+    #     print("Pilihan tidak valid\n")
