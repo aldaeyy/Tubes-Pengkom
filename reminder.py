@@ -24,6 +24,17 @@
 # hari_ini, tanggal: datetime
 # waktu: time
 
+# kamus_bulan: array of string
+kamus_bulan = {
+    'Sunday': 'Minggu',
+    'Monday': 'Senin',
+    'Tuesday': 'Selasa',
+    'Wednesday': 'Rabu',
+    'Thursday': 'Kamis',
+    'Friday': 'Jumat',
+    'Saturday': 'Sabtu'
+}
+
 # def menu_utama(): menampilkan pilihan menu
 def menu_utama():
     print("Ketik '1' untuk menambah event reminder")
