@@ -13,12 +13,16 @@
 # Deskripsi: Program ini akan mengingatkan user untuk melakukan sesuatu
 
 # KAMUS
-# event: array of string
-# tanggal: array of datetime
-# jam: array of string
-# keterangan_event: array of array of string
-# index_event: int
-# nomor: int
+# event : array of string
+# tanggal : array of datetime
+# jam : array of string
+# index_event : integer
+# nomor = integer
+# ubah = integer
+# keterangan_event : array of array of string
+# jam_mulai, menit_mulai, jam_selesai, menit_selesai = integer
+# nama, prioritas, lokasi, tags, deskripsi : string
+# tanggal_event, bulan_event, tahun_event : integer
 
 # def tambah_event(): menambahkan event
 def tambah_event():
@@ -30,7 +34,6 @@ def tambah_event():
         tahun_event = int(input("Masukkan tahun event: "))
         event[index_event] = nama  # menambahkan nama event
         tanggal[index_event] = dt(tahun_event, bulan_event, tanggal_event)  # menambahkan tanggal event
-
         pilihan = input("Ketik 'y' jika ingin menambah waktu spesifik: ")
         if pilihan == 'y':  # menambahkan waktu event
             jam_mulai = int(input("Masukkan jam mulai: "))
@@ -42,10 +45,8 @@ def tambah_event():
             jam[index_event] = mulai.strftime("%H:%M") + " - " + selesai.strftime("%H:%M")  # type: ignore  # menambahkan waktu event
         else:  # jika tidak menambahkan waktu event
             jam[index_event] = "Seharian"  # type: ignore
-
         print("Event berhasil ditambahkan\n")
         index_event += 1  # menambahkan index event
-
     except ValueError:
         print("Input yang dimasukkan tidak valid\n")
 
@@ -65,7 +66,6 @@ def tampilan(i, nomor):
 # def lihat_event_hari_ini(): menampilkan event hari ini
 def lihat_event_hari_ini():
     global index_event, nomor
-
     if index_event == 0:
         print("Tidak ada event\n")
     else:
@@ -73,10 +73,8 @@ def lihat_event_hari_ini():
             if tanggal[i].strftime("%d %b %Y") == dt.today().strftime("%d %b %Y"):  # type: ignore  # menampilkan event hari ini
                 tampilan(i, nomor)  
                 nomor += 1  
-    
     if nomor == 1:
         print("Tidak ada event hari ini\n")
-    
     nomor = 1  # mengembalikan jumlah event ke 1
 
 # def lihat_event_besok(): menampilkan event besok
@@ -89,10 +87,8 @@ def lihat_event_besok():
             if (tanggal[i] - dt.today()).days == 1:
                 tampilan(i, nomor)
                 nomor += 1
-
     if nomor == 1:
         print("Tidak ada event besok\n")
-
     nomor = 1  # mengembalikan jumlah event ke 1
 
 # def lihat_event_seminggu(): menampilkan event selama seminggu
@@ -105,10 +101,8 @@ def lihat_event_seminggu():
             if (tanggal[i] - dt.today()).days <= 7:
                 tampilan(i, nomor)
                 nomor += 1
-
     if nomor == 1:
         print("Tidak ada event selama seminggu\n")
-
     nomor = 1  # mengembalikan jumlah event ke 1
 
 # def lihat_event_terlewat(): menampilkan event yang terlewat
@@ -121,10 +115,8 @@ def lihat_event_terlewat():
             if (tanggal[i] - dt.today()).days < 0:
                 tampilan(i, nomor)
                 nomor += 1
-
     if nomor == 1:
         print("Tidak ada event yang terlewat\n")
-
     nomor = 1  # mengembalikan jumlah event ke 1
 
 # def lihat_semua_event(): menampilkan event
@@ -136,7 +128,6 @@ def lihat_semua_event():
         for i in range(index_event):
             tampilan(i, nomor)
             nomor += 1
-
     nomor = 1  # mengembalikan jumlah event ke 1
     
 # def lihat_event(): menampilkan event
@@ -155,7 +146,6 @@ def lihat_event():
         except ValueError:
             print("Input yang dimasukkan tidak valid\n")
             menu = 0
-
         if menu == 1:
             lihat_event_hari_ini()
         elif menu == 2:
@@ -174,7 +164,6 @@ def lihat_event():
 # def hapus_event(): menghapus event
 def hapus_event():
     global index_event
-
     if index_event == 0:  
         print("Tidak ada event\n")
     else:
