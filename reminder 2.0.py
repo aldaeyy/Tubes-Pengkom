@@ -54,8 +54,8 @@ def tambah_event():
 def tampilan(i, nomor):
     print(f"EVENT KE-{nomor}")
     print("Nama Event       :", event[i])
-    print("Tanggal Event    :", tanggal[i].strftime("%d %B %Y"))
-    print("Waktu event      :", jam[i])
+    print("Tanggal Event    :", tanggal[i].strftime("%A, %d %B %Y"))
+    print("Waktu Event      :", jam[i])
     print("Sisa hari        :", (tanggal[i] - dt.today()).days, "hari")
     print("Prioritas        :", keterangan_event[i][0])
     print("Lokasi           :", keterangan_event[i][1])
@@ -211,10 +211,11 @@ def ubah_event():
                 else:
                     print("1. Nama event")
                     print("2. Tanggal event")
-                    print("3. Prioritas")
-                    print("4. Lokasi")
-                    print("5. Tags")
-                    print("6. Deskripsi\n")
+                    print("3. Waktu event")
+                    print("4. Prioritas")
+                    print("5. Lokasi")
+                    print("6. Tags")
+                    print("7. Deskripsi\n")
                     print("Pilih menu: ", end="")
                     try:  # memasukkan menu yang ingin diubah
                         menu = int(input())
@@ -230,8 +231,20 @@ def ubah_event():
                         bulan_event = int(input("Masukkan bulan event: "))
                         tahun_event = int(input("Masukkan tahun event: "))
                         tanggal[ubah-1] = dt(tahun_event, bulan_event, tanggal_event) 
-                        print("Tanggal event berhasil diubah\n") 
-                    elif menu == 3:  # mengubah prioritas
+                        print("Tanggal event berhasil diubah\n")
+                    elif menu == 3:  # mengubah jam event
+                        pilihan = input("Ketik 'y' jika ingin menambah waktu spesifik: ").lower()
+                        if pilihan == "y":  # jika ingin menambah waktu spesifik   
+                            jam_mulai = int(input("Masukkan jam mulai event: "))
+                            menit_mulai = int(input("Masukkan menit mulai event: "))
+                            jam_selesai = int(input("Masukkan jam selesai event: "))
+                            menit_selesai = int(input("Masukkan menit selesai event: "))
+                            mulai = tm(jam_mulai, menit_mulai)
+                            selesai = tm(jam_selesai, menit_selesai)
+                            jam[ubah-1] = mulai.strftime("%H:%M") + " - " + selesai.strftime("%H:%M")  # type: ignore  # menambahkan waktu event
+                        else:
+                            jam[ubah-1] = "Seharian"  # type: ignore # jika tidak ingin menambah waktu spesifik
+                    elif menu == 4:  # mengubah prioritas
                         pilihan = input("Ketik '1' untuk prioritas rendah, '2' untuk prioritas sedang, dan '3' untuk prioritas tinggi: ")
                         if pilihan == "1":
                             keterangan_event[ubah-1][0] = "Rendah"
@@ -244,20 +257,18 @@ def ubah_event():
                             print("Prioritas berhasil diubah\n")
                         else:
                             print("Input yang dimasukkan tidak valid\n")
-                    elif menu == 4:  # mengubah lokasi
+                    elif menu == 5:  # mengubah lokasi
                         lokasi = input("Masukkan lokasi: ")
                         keterangan_event[ubah-1][1] = lokasi
                         print("Lokasi berhasil diubah\n")
-                    elif menu == 5:  # mengubah tags
+                    elif menu == 6:  # mengubah tags
                         tags = input("Masukkan tags: ")
                         keterangan_event[ubah-1][2] = tags
                         print("Tags berhasil diubah\n")
-                    elif menu == 6:  # mengubah deskripsi
+                    elif menu == 7:  # mengubah deskripsi
                         deskripsi = input("Masukkan deskripsi: ")
                         keterangan_event[ubah-1][3] = deskripsi
                         print("Deskripsi berhasil diubah\n")
-                    elif menu == 7:  # kembali ke menu sebelumnya
-                        break
                     else:  # jika menu tidak tersedia
                         print("Menu tidak ada\n")
             except ValueError:  # jika input yang dimasukkan tidak valid
