@@ -181,7 +181,9 @@ def hapus_event():
                     for i in range(hapus-1, index_event-1):  # menggeser event
                         event[i] = event[i+1]
                         tanggal[i] = tanggal[i+1]
-                        keterangan_event[i] = keterangan_event[i+1]
+                        jam[i] = jam[i+1]
+                        for j in range(4):  # menggeser keterangan event
+                            keterangan_event[i][j] = keterangan_event[i+1][j]
                     index_event -= 1  # mengurangi jumlah event
                     print("Event berhasil dihapus\n")  
                 elif konfirmasi == "n":
@@ -361,10 +363,10 @@ setlocale(LC_ALL, 'id_ID.utf8')
 event = ['' for i in range(10)]
 tanggal = [dt(1,1,1) for i in range(10)]
 jam = [tm(0,0) for i in range(10)]
+keterangan_event = [['-' for i in range(4)] for j in range(10)]
 index_event = 0
 nomor = 1
 ubah = 0
-keterangan_event = [['-' for i in range(4)] for j in range(10)]
 jam_mulai = menit_mulai = 0
 jam_selesai = menit_selesai = 0
 nama = prioritas = lokasi = tags = deskripsi = ''
@@ -386,37 +388,37 @@ while True:
     print("Pilih menu: ", end="")
     try:  # Mencegah input selain integer
         menu = int(input())  # Input menu
-    except ValueError:  
+
+        if menu == 1:  # Tambah event
+            if index_event == 10:
+                print("Jumlah event sudah maksimal\n")
+            else:
+                tambah_event()
+        elif menu == 2:  # Lihat event
+            if index_event == 0:
+                print("Tidak ada event\n")
+            else:
+                lihat_event()
+        elif menu == 3:  # Hapus event
+            if index_event == 0:
+                print("Tidak ada event\n")
+            else:
+                hapus_event()
+        elif menu == 4:  # Ubah event
+            if index_event == 0:
+                print("Tidak ada event\n")
+            else:
+                ubah_event()
+        elif menu == 5:  # Cari event
+            if index_event == 0:
+                print("Tidak ada event\n")
+            else:
+                cari_event()
+        elif menu == 6:  # Keluar
+            break  # Keluar dari program
+        else:  # Input selain 1-6
+            print("Menu tidak tersedia\n")
+    except:  
         print("Input yang dimasukkan tidak valid\n")
         menu = 0
-
-    if menu == 1:  # Tambah event
-        if index_event == 10:
-            print("Jumlah event sudah maksimal\n")
-        else:
-            tambah_event()
-    elif menu == 2:  # Lihat event
-        if index_event == 0:
-            print("Tidak ada event\n")
-        else:
-            lihat_event()
-    elif menu == 3:  # Hapus event
-        if index_event == 0:
-            print("Tidak ada event\n")
-        else:
-            hapus_event()
-    elif menu == 4:  # Ubah event
-        if index_event == 0:
-            print("Tidak ada event\n")
-        else:
-            ubah_event()
-    elif menu == 5:  # Cari event
-        if index_event == 0:
-            print("Tidak ada event\n")
-        else:
-            cari_event()
-    elif menu == 6:  # Keluar
-        break  # Keluar dari program
-    else:  # Input selain 1-6
-        print("Menu tidak tersedia\n")
           
