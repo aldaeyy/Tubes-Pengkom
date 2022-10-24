@@ -77,18 +77,18 @@ def tambah_event():
     global jumlah_event
     print("TAMBAH EVENT")
     nama = input("Masukkan nama event: ").upper()
-    tanggal_event = int(input("Masukkan tanggal event: "))
-    bulan_event = int(input("Masukkan bulan event: "))
-    tahun_event = int(input("Masukkan tahun event: "))
+    tanggal_event = int(input("Masukkan tanggal event (DD): "))
+    bulan_event = int(input("Masukkan bulan event (MM): "))
+    tahun_event = int(input("Masukkan tahun event (YYYY): "))
     tanggal = datetime.date(tahun_event, bulan_event, tanggal_event).strftime("%A, %d %B %Y")
     pilihan = input("Apakah anda ingin menginputkan waktu event? (Y/N): ").lower()
     if pilihan == "y":
-        jam_mulai = int(input("Masukkan jam mulai event: "))
-        menit_mulai = int(input("Masukkan menit mulai event: "))
-        waktu_mulai = datetime.time(jam_mulai, menit_mulai)
-        jam_selesai = int(input("Masukkan jam selesai event: "))
-        menit_selesai = int(input("Masukkan menit selesai event: "))
-        waktu_selesai = datetime.time(jam_selesai, menit_selesai)
+        jam_mulai = int(input("Masukkan jam mulai event (HH): "))
+        menit_mulai = int(input("Masukkan menit mulai event (MM): "))
+        waktu_mulai = datetime.time(jam_mulai, menit_mulai).strftime("%H:%M")
+        jam_selesai = int(input("Masukkan jam selesai event (HH): "))
+        menit_selesai = int(input("Masukkan menit selesai event (MM): "))
+        waktu_selesai = datetime.time(jam_selesai, menit_selesai).strftime("%H:%M")
         waktu = f"{waktu_mulai} - {waktu_selesai}"
     else:
         waktu = "Seharian"
@@ -202,9 +202,9 @@ def ubah_event():
                 nama = input("Masukkan nama event: ").upper()
                 list_event[nomor_event - 1].nama = nama
             elif pilihan == 2:
-                tanggal_event = int(input("Masukkan tanggal event: "))
-                bulan_event = int(input("Masukkan bulan event: "))
-                tahun_event = int(input("Masukkan tahun event: "))
+                tanggal_event = int(input("Masukkan tanggal event (DD): "))
+                bulan_event = int(input("Masukkan bulan event (MM): "))
+                tahun_event = int(input("Masukkan tahun event (YYYY): "))
                 sisa_hari = (datetime.date(tahun_event, bulan_event, tanggal_event) - datetime.date.today()).days
                 tanggal = datetime.date(tahun_event, bulan_event, tanggal_event).strftime("%A, %d %B %Y")
                 list_event[nomor_event - 1].sisa = sisa_hari
@@ -212,12 +212,12 @@ def ubah_event():
             elif pilihan == 3:
                 pilihan2 = input("Apakah anda ingin menginputkan waktu event? (Y/N): ").lower()
                 if pilihan2 == "y":
-                    jam_mulai = int(input("Masukkan jam mulai event: "))
-                    menit_mulai = int(input("Masukkan menit mulai event: "))
-                    waktu_mulai = datetime.time(jam_mulai, menit_mulai)
-                    jam_selesai = int(input("Masukkan jam selesai event: "))
-                    menit_selesai = int(input("Masukkan menit selesai event: "))
-                    waktu_selesai = datetime.time(jam_selesai, menit_selesai)
+                    jam_mulai = int(input("Masukkan jam mulai event (HH): "))
+                    menit_mulai = int(input("Masukkan menit mulai event (MM): "))
+                    waktu_mulai = datetime.time(jam_mulai, menit_mulai).strftime("%H:%M")
+                    jam_selesai = int(input("Masukkan jam selesai event (HH): "))
+                    menit_selesai = int(input("Masukkan menit selesai event (MM): "))
+                    waktu_selesai = datetime.time(jam_selesai, menit_selesai).strftime("%H:%M")
                     waktu = f"{waktu_mulai} - {waktu_selesai}"
                 else:
                     waktu = "Seharian"
@@ -260,9 +260,9 @@ def cari_event():
             if ada == 0:
                 print("Tidak ada event dengan nama tersebut!\n")
         elif pilihan == "2":
-            tanggal_event = int(input("Masukkan tanggal event: "))
-            bulan_event = int(input("Masukkan bulan event: "))
-            tahun_event = int(input("Masukkan tahun event: "))
+            tanggal_event = int(input("Masukkan tanggal event (DD): "))
+            bulan_event = int(input("Masukkan bulan event (MM): "))
+            tahun_event = int(input("Masukkan tahun event (YYYY): "))
             tanggal = datetime.date(tahun_event, bulan_event, tanggal_event).strftime("%A, %d %B %Y")
             for event in list_event:
                 if event.tanggal == tanggal:
@@ -349,3 +349,4 @@ while True:
         print("Input tidak valid!\n")
 
 print("Terima kasih telah menggunakan program ini!")
+input("Tekan enter untuk keluar...")
