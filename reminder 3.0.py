@@ -38,7 +38,6 @@ class Event():
         print("Lokasi   : ", self.lokasi)
         print("Tags     : ", self.tags)
         print("Deskripsi: ", self.deskripsi)
-        print()
         return ""
         
 def menu_utama():
