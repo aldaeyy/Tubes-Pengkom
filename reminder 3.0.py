@@ -93,28 +93,45 @@ def tambah_event():
     print("Event berhasil ditambahkan!\n")
 
 def lihat_event_hari_ini():
+    ada = 0
     print("LIHAT EVENT HARI INI")
     for event in list_event:
         if event.tanggal == datetime.date.today():
+            ada += 1
             print(event)
+    
+    if ada == 0:
+        print("Tidak ada event hari ini\n")
 
 def lihat_event_besok():
+    ada = 0
     print("LIHAT EVENT BESOK")
     for event in list_event:
         if event.tanggal == datetime.date.today() + datetime.timedelta(days=1):
             print(event)
+    
+    if ada == 0:
+        print("Tidak ada event besok\n")
 
 def lihat_event_minggu_ini():
+    ada = 0
     print("LIHAT EVENT MINGGU INI")
     for event in list_event:
         if event.tanggal >= datetime.date.today() and event.tanggal <= datetime.date.today() + datetime.timedelta(days=7):
             print(event)
+    
+    if ada == 0:
+        print("Tidak ada event minggu ini\n")
 
 def lihat_event_terlewat():
+    ada = 0
     print("LIHAT EVENT TERLEWAT")
     for event in list_event:
         if event.tanggal < datetime.date.today():
             print(event)
+    
+    if ada == 0:
+        print("Tidak ada event terlewat\n")
 
 def lihat_semua_event():
     print("LIHAT SEMUA EVENT")
@@ -285,7 +302,7 @@ while True:
             break
         else:
             print("Pilihan tidak valid!\n")
-    except ValueError:
+    except:
         print("Input tidak valid!\n")
 
 print("Terima kasih telah menggunakan program ini!")
