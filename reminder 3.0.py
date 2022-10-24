@@ -56,7 +56,8 @@ def menu_ubah():
     print("4. Prioritas")
     print("5. Lokasi")
     print("6. Tags")
-    print("7. Deskripsi\n")
+    print("7. Deskripsi")
+    print("8. Kembali ke menu utama\n")
 
 def menu_cari():
     print("1. Cari berdasarkan nama")
@@ -220,8 +221,10 @@ def ubah_event():
     elif pilihan == 5:
         list_event[nomor_event - 1].lokasi = input("Masukkan lokasi event: ")
     elif pilihan == 6:
-        list_event[nomor_event - 1].deskripsi = input("Masukkan deskripsi event: ")
+        list_event[nomor_event - 1].tags = input("Masukkan tags event: ")
     elif pilihan == 7:
+        list_event[nomor_event - 1].deskripsi = input("Masukkan deskripsi event: ")
+    elif pilihan == 8:
         return
     else:
         print("Pilihan tidak valid!\n")
