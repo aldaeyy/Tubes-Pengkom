@@ -315,6 +315,11 @@ setlocale(LC_ALL, 'id_ID.utf8')
 list_event = []
 jumlah_event = 0
 
+# pembuka
+print("Welcome to Counting Days!")
+print("Silahkan memasukkan event yang ingin Anda ingatkan\n")
+
+# program utama
 while True:
     try:
         menu_utama()
