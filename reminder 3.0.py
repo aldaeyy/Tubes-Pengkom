@@ -87,7 +87,7 @@ def tambah_event():
         waktu = "Seharian"
     
     sisa_hari = (datetime.date(tahun_event, bulan_event, tanggal_event) - datetime.date.today()).days
-    event = Event(jumlah_event, nama, tanggal, waktu, sisa_hari, None, None, None, None)
+    event = Event(jumlah_event + 1, nama, tanggal, waktu, sisa_hari, None, None, None, None)
     list_event.append(event)
     jumlah_event += 1
     print("Event berhasil ditambahkan!\n")
@@ -163,6 +163,7 @@ def lihat_event():
         print("Pilihan tidak valid!\n")
 
 def hapus_event():
+    global jumlah_event
     print("HAPUS EVENT")
     lihat_semua_event()
     nomor_event = int(input("Masukkan nomor event yang ingin dihapus: "))
@@ -171,6 +172,7 @@ def hapus_event():
     if konfirmasi == "y":
         list_event.pop(nomor_event)
         print("Event berhasil dihapus!\n")
+        jumlah_event -= 1
     else:
         print("Event tidak jadi dihapus!\n")
 
@@ -228,9 +230,8 @@ def ubah_event():
 
 def cari_event():
     print("CARI EVENT")
-    lihat_semua_event()
     menu_cari()
-    pilihan = input("Masukkan pilihan yang mau diubah")
+    pilihan = input("Masukkan pilihan: ")
     if pilihan == "1":
         nama = input("Masukkan nama event: ").upper()
         for event in list_event:
@@ -270,7 +271,7 @@ setlocale(LC_ALL, 'id_ID.utf8')
 
 # Inisialisasi
 list_event = []
-jumlah_event = 1
+jumlah_event = 0
 
 while True:
     try:
@@ -279,22 +280,22 @@ while True:
         if pilihan == 1:
             tambah_event()
         elif pilihan == 2:
-            if jumlah_event == 1:
+            if jumlah_event == 0:
                 print("Tidak ada event yang bisa dilihat!\n")
             else:
                 lihat_event()
         elif pilihan == 3:
-            if jumlah_event == 1:
+            if jumlah_event == 0:
                 print("Tidak ada event yang bisa hapus!\n")
             else:
                 hapus_event()
         elif pilihan == 4:
-            if jumlah_event == 1:
+            if jumlah_event == 0:
                 print("Tidak ada event yang bisa diubah!\n")
             else:
                 ubah_event()
         elif pilihan == 5:
-            if jumlah_event == 1:
+            if jumlah_event == 0:
                 print("Tidak ada event yang bisa dicari!\n")
             else:
                 cari_event()
