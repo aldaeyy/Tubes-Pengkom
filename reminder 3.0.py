@@ -386,7 +386,7 @@ while True:
             break
         else:
             print("Pilihan tidak valid!\n")
-    except ValueError:
+    except:
         print("Input tidak valid!\n")
 
     if jumlah_event > 0:
