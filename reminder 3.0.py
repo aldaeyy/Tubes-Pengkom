@@ -101,7 +101,8 @@ def tambah_event():
     else:
         waktu = "Seharian"
     
-    sisa_hari = datetime.date(tanggal_input[2], tanggal_input[1], tanggal_input[0]).day - datetime.date.today().day
+    sisa_hari = datetime.date(tanggal_input[2], tanggal_input[1], tanggal_input[0]) - datetime.date.today()
+    sisa_hari = sisa_hari.days
     event = Event(jumlah_event + 1, nama, tanggal, waktu, sisa_hari, None, None, None, None, False)
     list_event.append(event)
     jumlah_event += 1
@@ -214,7 +215,8 @@ def ubah_event():
                 tanggal_input = tanggal_input.split("/")
                 tanggal_input = list(map(int, tanggal_input))
                 tanggal = datetime.date(tanggal_input[2], tanggal_input[1], tanggal_input[0]).strftime("%A, %d %B %Y")
-                sisa_hari = datetime.date(tanggal_input[2], tanggal_input[1], tanggal_input[0]).day - datetime.date.today().day
+                sisa_hari = datetime.date(tanggal_input[2], tanggal_input[1], tanggal_input[0]) - datetime.date.today()
+                sisa_hari = sisa_hari.days
                 list_event[nomor_event - 1].sisa = sisa_hari
                 list_event[nomor_event - 1].tanggal = tanggal
             elif pilihan == 3:
@@ -388,7 +390,6 @@ while True:
         print("Input tidak valid!\n")
 
     if jumlah_event > 0:
-        print("jalan gak si")
         notifikasi()
 
 print("Terima kasih telah menggunakan program ini!")
