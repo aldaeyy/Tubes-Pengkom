@@ -219,6 +219,7 @@ def ubah_event():
                 sisa_hari = sisa_hari.days
                 list_event[nomor_event - 1].sisa = sisa_hari
                 list_event[nomor_event - 1].tanggal = tanggal
+                list_event[nomor_event - 1].status = False
             elif pilihan == 3:
                 pilihan2 = input("Apakah anda ingin menginputkan waktu event? (Y/N): ").lower()
                 if pilihan2 == "y":
@@ -236,6 +237,7 @@ def ubah_event():
                 else:
                     waktu = "Seharian"
                 list_event[nomor_event - 1].waktu = waktu
+                list_event[nomor_event - 1].status = False
             elif pilihan == 4:
                 pilihan2 = input("Ketik '1' untuk prioritas rendah, '2' untuk prioritas sedang, dan '3' untuk prioritas tinggi: ")
                 if pilihan2 == "1":
