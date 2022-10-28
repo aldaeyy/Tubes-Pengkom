@@ -494,10 +494,11 @@ while True:
 
     if jumlah_event > 0:  # mengecek apakah ada event yang tersimpan
         cek_notifikasi()  # menampilkan notifikasi
-        shelve_event = shelve.open("event")  # membuka file event
-        shelve_event.clear()  # menghapus semua event yang tersimpan
-        for event in list_event:  # menambahkan event ke dictionary
-            shelve_event[event.nama] = event
+    
+    # sinkronisasi data
+    shelve_event.clear()  # menghapus data lama
+    for event in list_event:
+        shelve_event[event.nama] = event
     shelve_event.close()  # menutup file event
 
 # penutup
