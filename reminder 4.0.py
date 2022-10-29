@@ -442,6 +442,7 @@ def cek_notifikasi():
 import datetime  # untuk mengakses tanggal dan waktu
 from locale import setlocale, LC_ALL  # untuk mengatur bahasa
 from plyer import notification  # untuk mengakses notifikasi
+import shelve  # untuk menyimpan event
 
 setlocale(LC_ALL, 'id_ID.utf8')  # mengatur bahasa menjadi Indonesia
 
@@ -456,6 +457,9 @@ print("Silahkan memasukkan event yang ingin Anda ingatkan\n")
 
 # program utama
 while True:
+    shelve_event = shelve.open("event")  # membuka file event
+    jumlah_event = len(shelve_event)  # menghitung jumlah event
+    list_event = list(shelve_event.values())  # mengubah event menjadi list
     try:
         menu_utama()  # menampilkan menu utama
         pilihan = int(input("Masukkan pilihan: "))
@@ -490,6 +494,12 @@ while True:
 
     if jumlah_event > 0:  # mengecek apakah ada event yang tersimpan
         cek_notifikasi()  # menampilkan notifikasi
+    
+    # sinkronisasi data
+    shelve_event.clear()  # menghapus data lama
+    for event in list_event:
+        shelve_event[event.nama] = event
+    shelve_event.close()  # menutup file event
 
 # penutup
 print("Terima kasih telah menggunakan program ini!")
